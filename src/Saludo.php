@@ -9,13 +9,13 @@ class Saludo {
     public function __construct() {
         $this->saludos = [
             "es" => ["saludo" => "¡Hola Mundo!", "codigo" => "ES"], // Español           
-            "zh" => ["saludo" => "你好，世界！", "codigo" => "CN"], // Chino            
+            "zh" => ["saludo" => "你好，世界", "codigo" => "CN"], // Chino            
             "en" => ["saludo" => "Hello, World!", "codigo" => "US"], // Inglés            
             "hi" => ["saludo" => "नमस्त दननया!", "codigo" => "IN"], // Hindi            
-            "ar" => ["saludo" => " ملاعلاب ابحرم !", " codigo" => "AR"], // Árabe            
+            "ar" => ["saludo" => "ملاعلاب ابحرم!", "codigo" => "AR"], // Árabe            
             "pt" => ["saludo" => "Olá Mundo!", "codigo" => "PT"], // Portugués            
             "ru" => ["saludo" => "Привет, мир!", "codigo" => "RU"], // Ruso            
-            "ja" => ["saludo" => "こんにちは、世界！", "codigo" => "JP"], // Japonés            
+            "ja" => ["saludo" => "こんにちは、世界", "codigo" => "JP"], // Japonés            
             "de" => ["saludo" => "Hallo Welt!", "codigo" => "DE"], // Alemán            
             "fr" => ["saludo" => "Bonjour le monde!", "codigo" => "FR"], // Francés        
         ];
