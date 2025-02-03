@@ -1,4 +1,4 @@
-name: CI/CD Pipeline for HolaMundoMultilenguaje
+name: CI/CD Pipeline para HolaMundoMultilenguaje
 
 on:
   push:
@@ -9,36 +9,36 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout del código
         uses: actions/checkout@v2
 
-      - name: Set up PHP
+      - name: Configurar PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
 
-      - name: Install dependencies
+      - name: Instalar dependencias
         run: composer install
 
-      - name: Run tests
+      - name: Ejecutar pruebas
         run: ./vendor/bin/phpunit tests
 
   deploy:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - name: Checkout code
+      - name: Checkout del código
         uses: actions/checkout@v2
 
-      - name: Set up PHP
+      - name: Configurar PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
 
-      - name: Install dependencies
+      - name: Instalar dependencias
         run: composer install
 
-      - name: Deploy to server
+      - name: Desplegar en el servidor
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           HOST: ${{ secrets.HOST }}
@@ -48,11 +48,12 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          # Use SSH to create the deploy path if it doesn't exist
+          # Crear el directorio de despliegue si no existe
           ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "mkdir -p $DEPLOY_PATH"
-          # Sync the application files to the server
+          # Sincronizar los archivos de la aplicación al servidor
           rsync -avz --delete --no-t --exclude 'tests' --exclude '.git' . $USERNAME@$HOST:$DEPLOY_PATH
-          # Optionally, run Composer install on the server
+          # Instalar dependencias en el servidor
           ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "cd $DEPLOY_PATH && composer install --no-dev --optimize-autoloader"
-          # Restart Apache if needed
-          ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "sudo systemctl restart apache2"
+          # Reiniciar Nginx
+          ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "sudo systemctl restart nginx"
+
