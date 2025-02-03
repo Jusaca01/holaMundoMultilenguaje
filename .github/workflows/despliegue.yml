@@ -48,12 +48,9 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          # Crear el directorio de despliegue si no existe
-          ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "mkdir -p $DEPLOY_PATH"
-          # Sincronizar los archivos de la aplicación al servidor
+          ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "sudo mkdir -p $DEPLOY_PATH"
           rsync -avz --delete --no-t --exclude 'tests' --exclude '.git' . $USERNAME@$HOST:$DEPLOY_PATH
-          # Instalar dependencias en el servidor
           ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "cd $DEPLOY_PATH && composer install --no-dev --optimize-autoloader"
-          # Reiniciar Nginx
           ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "sudo systemctl restart nginx"
+
 
