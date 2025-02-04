@@ -9,7 +9,7 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 COPY . /var/www/html/
 
 # Establece los permisos adecuados para el directorio de la aplicación RUN chown -R 
-RUN chmod www-data:www-data /var/www/html
+RUN chmod -R www-data:www-data /var/www/html
 RUN chmod -R 755 /var/www/html
 
 # Expone el puerto 80 para que Apache pueda recibir tráfico web
